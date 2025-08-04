@@ -1,5 +1,11 @@
 # MCP Tailwind Gemini Server
 
+[![GitHub](https://img.shields.io/badge/GitHub-Repository-blue?style=flat-square&logo=github)](https://github.com/Tai-DT/mcp-tailwind-gemini)
+[![License](https://img.shields.io/badge/License-MIT-green.svg?style=flat-square)](LICENSE)
+[![Node.js](https://img.shields.io/badge/Node.js-18+-green?style=flat-square&logo=node.js)](https://nodejs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-blue?style=flat-square&logo=typescript)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-CSS-38B2AC?style=flat-square&logo=tailwind-css)](https://tailwindcss.com/)
+
 Advanced Model Context Protocol (MCP) server for Tailwind CSS with Gemini AI integration and **cross-platform support** for intelligent design assistance across all major development environments.
 
 ## 🌟 Features
@@ -46,7 +52,7 @@ Advanced Model Context Protocol (MCP) server for Tailwind CSS with Gemini AI int
 
 1. Clone the repository:
 ```bash
-git clone <repository-url>
+git clone https://github.com/Tai-DT/mcp-tailwind-gemini.git
 cd mcp-tailwind-gemini
 ```
 
@@ -315,9 +321,9 @@ MIT License - see LICENSE file for details.
 
 ## 🙋‍♂️ Support
 
-- **Issues**: [GitHub Issues](https://github.com/your-username/mcp-tailwind-gemini/issues)
+- **Issues**: [GitHub Issues](https://github.com/Tai-DT/mcp-tailwind-gemini/issues)
 - **Documentation**: Check the examples in this README
-- **Discussions**: [GitHub Discussions](https://github.com/your-username/mcp-tailwind-gemini/discussions)
+- **Discussions**: [GitHub Discussions](https://github.com/Tai-DT/mcp-tailwind-gemini/discussions)
 
 ---
 
