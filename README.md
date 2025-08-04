@@ -78,14 +78,12 @@ Add to your `claude_desktop_config.json`:
 ```json
 {
   "mcpServers": {
-    "mcp-tailwind-gemini": {
-      "command": "node",
-      "args": ["/Users/macbook/Desktop/Code/mcp-tailwind-gemini/dist/index.js"],
+    "tailwind-gemini": {
+      "command": "npx",
+      "args": ["mcp-gemini-cli", "--allow-npx"],
       "env": {
-        "GEMINI_API_KEY": "your_gemini_api_key_here"
+        "GEMINI_API_KEY": ""your-api-key-here"
       }
-    }
-  }
 }
 ```
 
