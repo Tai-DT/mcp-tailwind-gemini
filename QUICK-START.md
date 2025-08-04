@@ -21,8 +21,9 @@ npm run build
 echo '{"jsonrpc": "2.0", "id": 1, "method": "tools/list"}' | node dist/index.js
 ```
 
-## 4. Configure Claude Desktop
+## 4. Configure MCP Client
 
+### For Claude Desktop
 Create or edit `~/Library/Application Support/Claude/claude_desktop_config.json`:
 
 ```json
@@ -39,9 +40,26 @@ Create or edit `~/Library/Application Support/Claude/claude_desktop_config.json`
 }
 ```
 
-## 5. Restart Claude Desktop
+### For Cursor IDE
+Add to your `~/.cursor/mcp.json`:
 
-After updating the config, restart Claude Desktop to load the MCP server.
+```json
+{
+  "mcpServers": {
+    "mcp-tailwind-gemini": {
+      "command": "node",
+      "args": ["/Users/macbook/Desktop/Code/mcp-tailwind-gemini/dist/index.js"],
+      "env": {
+        "GEMINI_API_KEY": "your_gemini_api_key_here"
+      }
+    }
+  }
+}
+```
+
+## 5. Restart Your MCP Client
+
+After updating the config, restart your MCP client (Claude Desktop or Cursor) to load the MCP server.
 
 ## 6. Test in Claude
 

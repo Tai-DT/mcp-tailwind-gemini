@@ -1,12 +1,12 @@
-# MCP Tailwind Gemini Server
+# 🎨 MCP Tailwind Gemini
+
+Advanced Model Context Protocol (MCP) server for Tailwind CSS with Gemini AI integration and cross-platform support for intelligent design assistance.
 
 [![GitHub](https://img.shields.io/badge/GitHub-Repository-blue?style=flat-square&logo=github)](https://github.com/Tai-DT/mcp-tailwind-gemini)
 [![License](https://img.shields.io/badge/License-MIT-green.svg?style=flat-square)](LICENSE)
 [![Node.js](https://img.shields.io/badge/Node.js-18+-green?style=flat-square&logo=node.js)](https://nodejs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0+-blue?style=flat-square&logo=typescript)](https://www.typescriptlang.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-CSS-38B2AC?style=flat-square&logo=tailwind-css)](https://tailwindcss.com/)
-
-Advanced Model Context Protocol (MCP) server for Tailwind CSS with Gemini AI integration and **cross-platform support** for intelligent design assistance across all major development environments.
 
 ## 🌟 Features
 
@@ -31,84 +31,39 @@ Advanced Model Context Protocol (MCP) server for Tailwind CSS with Gemini AI int
 - **Design Tool Sync**: Figma plugin for design-to-code conversion
 - **Universal Deployment**: CLI tools, browser extensions, and API integrations
 
-### 🚀 Advanced Capabilities
-- **Framework Adapters**: Automatic component conversion between frameworks
-- **Universal Project Generation**: Create full-stack applications with any tech stack
-- **Multi-Platform Deployment**: Deploy to development environments, production, and design tools
-- **External API Integration**: Gemini, OpenAI, Claude, Figma for enhanced AI capabilities
-- **Responsive Design**: Mobile-first approach with breakpoint optimization
-- **Accessibility**: WCAG compliance checking and enhancement suggestions
-- **Performance**: Bundle size optimization and render performance analysis
-- **Visual Preview**: Screenshot generation for component visualization
-
 ## 📦 Installation
 
 ### Prerequisites
 - Node.js 18 or higher
 - npm or yarn package manager
-- (Optional) Gemini API key for AI features
+- Gemini API key for AI features
 
 ### Setup
 
-1. Clone the repository:
-```bash
-git clone https://github.com/Tai-DT/mcp-tailwind-gemini.git
-cd mcp-tailwind-gemini
-```
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/Tai-DT/mcp-tailwind-gemini.git
+   cd mcp-tailwind-gemini
+   ```
 
-2. Install dependencies:
-```bash
-npm install
-```
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
 
-3. Build the project:
-```bash
-npm run build
-```
+3. **Build the project:**
+   ```bash
+   npm run build
+   ```
 
-4. (Optional) Set up Gemini AI:
-```bash
-export GEMINI_API_KEY="your-api-key-here"
-```
+4. **Set up Gemini AI (optional):**
+   ```bash
+   export GEMINI_API_KEY="your-api-key-here"
+   ```
 
-### Claude Desktop Configuration
+## 🔧 MCP Configuration
 
-Add to your `claude_desktop_config.json`:
-
-```json
-{
-  "mcpServers": {
-    "tailwind-gemini": {
-      "command": "npx",
-      "args": ["mcp-gemini-cli", "--allow-npx"],
-      "env": {
-        "GEMINI_API_KEY": ""your-api-key-here"
-      }
-}
-```
-
-**Config File Locations:**
-- **macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
-- **Windows**: `%APPDATA%\\Claude\\claude_desktop_config.json`
-- **Linux**: `~/.config/Claude/claude_desktop_config.json`
-
-**Alternative Configuration (using npm):**
-```json
-{
-  "mcpServers": {
-    "mcp-tailwind-gemini": {
-      "command": "npm",
-      "args": ["run", "start"],
-      "cwd": "/Users/macbook/Desktop/Code/mcp-tailwind-gemini",
-      "env": {
-        "GEMINI_API_KEY": "your_gemini_api_key_here"
-      }
-    }
-  }
-}
-```
-
-#### For Cursor IDE
+### For Cursor IDE
 
 Add to your `~/.cursor/mcp.json`:
 
@@ -125,6 +80,47 @@ Add to your `~/.cursor/mcp.json`:
   }
 }
 ```
+
+### For Claude Desktop
+
+Add to your `claude_desktop_config.json`:
+
+```json
+{
+  "mcpServers": {
+    "mcp-tailwind-gemini": {
+      "command": "node",
+      "args": ["/Users/macbook/Desktop/Code/mcp-tailwind-gemini/dist/index.js"],
+      "env": {
+        "GEMINI_API_KEY": "your_gemini_api_key_here"
+      }
+    }
+  }
+}
+```
+
+**Config File Locations:**
+- **macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
+- **Windows**: `%APPDATA%\\Claude\\claude_desktop_config.json`
+- **Linux**: `~/.config/Claude/claude_desktop_config.json`
+
+### Alternative Configuration (using npm)
+
+```json
+{
+  "mcpServers": {
+    "mcp-tailwind-gemini": {
+      "command": "npm",
+      "args": ["run", "start"],
+      "cwd": "/Users/macbook/Desktop/Code/mcp-tailwind-gemini",
+      "env": {
+        "GEMINI_API_KEY": "your_gemini_api_key_here"
+      }
+    }
+  }
+}
+```
+
 ## 🛠️ Available Tools
 
 ### Component Generation
@@ -214,6 +210,28 @@ Add to your `~/.cursor/mcp.json`:
 }
 ```
 
+### Shadcn/ui Components
+```javascript
+{
+  "tool": "get_shadcn_component",
+  "componentName": "button",
+  "includeDemo": true,
+  "framework": "react"
+}
+```
+
+### Project Generation
+```javascript
+{
+  "tool": "create_project",
+  "projectName": "My App",
+  "framework": "react",
+  "typescript": true,
+  "components": ["button", "card", "form"],
+  "template": "dashboard"
+}
+```
+
 ## 🎯 Use Cases
 
 ### Creating Components
@@ -262,46 +280,6 @@ Build comprehensive design systems:
   "features": ["typescript", "tailwind", "testing", "deployment"]
 }
 ```
-
-### Platform Integration
-```bash
-# VS Code Extension
-code --install-extension tailwind-mcp-assistant
-
-# WebStorm Plugin  
-# Install from JetBrains Marketplace: "Tailwind MCP Assistant"
-
-# Figma Plugin
-# Search "Tailwind MCP" in Figma Community
-
-# CLI Tool
-npm install -g tailwind-mcp-cli
-tmcp generate --framework react --description "Product card"
-
-# Browser Extension
-# Install from Chrome Web Store: "Tailwind MCP Assistant"
-```
-
-### Cross-Platform Workflow
-```bash
-# 1. Design in Figma → Extract with plugin
-# 2. Convert to multiple frameworks  
-tmcp convert --from figma --to react,vue,svelte
-
-# 3. Generate optimized projects
-tmcp create-project --framework react --build vite
-tmcp create-project --framework vue --build nuxt
-
-# 4. Deploy to multiple platforms
-tmcp deploy --platforms vercel,netlify,aws
-```
-
-### Code Migration
-Convert existing CSS to Tailwind:
-- Transform legacy CSS to utility classes
-- Migrate from other frameworks
-- Optimize class usage patterns
-- Maintain visual consistency
 
 ## 🔧 Development
 
@@ -355,21 +333,6 @@ src/
     └── gemini.ts          # Gemini AI integration
 ```
 
-## 🤝 Contributing
-
-We welcome contributions! Please see our contributing guidelines for details.
-
-### Development Setup
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests if applicable
-5. Submit a pull request
-
-## 📄 License
-
-MIT License - see LICENSE file for details.
-
 ## 🔧 Troubleshooting
 
 ### Common Issues
@@ -403,6 +366,21 @@ MIT License - see LICENSE file for details.
 DEBUG=mcp:* node dist/index.js
 ```
 
+## 🤝 Contributing
+
+We welcome contributions! Please see our contributing guidelines for details.
+
+### Development Setup
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests if applicable
+5. Submit a pull request
+
+## 📄 License
+
+MIT License - see LICENSE file for details.
+
 ## 🙋‍♂️ Support
 
 - **Issues**: [GitHub Issues](https://github.com/Tai-DT/mcp-tailwind-gemini/issues)
@@ -411,4 +389,4 @@ DEBUG=mcp:* node dist/index.js
 
 ---
 
-Built with ❤️ for the Tailwind CSS and AI community
+Built with ❤️ for the Tailwind CSS and AI community 
