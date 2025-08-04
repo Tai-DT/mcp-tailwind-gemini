@@ -46,9 +46,10 @@ Advanced Model Context Protocol (MCP) server for Tailwind CSS with Gemini AI int
 ### Prerequisites
 - Node.js 18 or higher
 - npm or yarn package manager
+- Docker (for containerized deployment)
 - (Optional) Gemini API key for AI features
 
-### Setup
+### Quick Start with Docker
 
 1. Clone the repository:
 ```bash
@@ -56,19 +57,48 @@ git clone https://github.com/Tai-DT/mcp-tailwind-gemini.git
 cd mcp-tailwind-gemini
 ```
 
-2. Install dependencies:
+2. Set up environment:
+```bash
+# Copy environment template
+cp env.example .env
+
+# Edit .env file with your API key
+# GEMINI_API_KEY=your_actual_api_key_here
+```
+
+3. Deploy with Docker:
+```bash
+# Build and run production container
+docker-compose -f docker-compose.prod.yml up -d
+
+# Check status
+docker ps | grep mcp-tailwind-server
+```
+
+### Local Development Setup
+
+1. Install dependencies:
 ```bash
 npm install
 ```
 
-3. Build the project:
+2. Build the project:
 ```bash
 npm run build
 ```
 
-4. (Optional) Set up Gemini AI:
+3. Set up environment:
 ```bash
-export GEMINI_API_KEY="your-api-key-here"
+# Copy environment template
+cp env.example .env
+
+# Edit with your API key
+# GEMINI_API_KEY=your_actual_api_key_here
+```
+
+4. Run development server:
+```bash
+npm run dev
 ```
 
 ### Claude Desktop Configuration
@@ -99,7 +129,7 @@ Add to your `claude_desktop_config.json`:
     "mcp-tailwind-gemini": {
       "command": "npm",
       "args": ["run", "start"],
-      "cwd": "/Users/macbook/Desktop/Code/mcp-tailwind-gemini",
+      "cwd": "/path/to/your/mcp-tailwind-gemini",
       "env": {
         "GEMINI_API_KEY": "your_gemini_api_key_here"
       }
@@ -117,7 +147,7 @@ Add to your `~/.cursor/mcp.json`:
   "mcpServers": {
     "mcp-tailwind-gemini": {
       "command": "node",
-      "args": ["/Users/macbook/Desktop/Code/mcp-tailwind-gemini/dist/index.js"],
+      "args": ["/path/to/your/mcp-tailwind-gemini/dist/index.js"],
       "env": {
         "GEMINI_API_KEY": "your_gemini_api_key_here"
       }
@@ -370,6 +400,72 @@ We welcome contributions! Please see our contributing guidelines for details.
 
 MIT License - see LICENSE file for details.
 
+## 🐳 Docker Deployment
+
+### Quick Docker Setup
+
+```bash
+# Build production image
+docker build -f Dockerfile.runtime -t mcp-tailwind-runtime:latest .
+
+# Run container
+docker run -d \
+  --name mcp-tailwind-server \
+  --env-file .env \
+  --restart unless-stopped \
+  mcp-tailwind-runtime:latest
+```
+
+### Docker Compose (Recommended)
+
+```bash
+# Start production stack
+docker-compose -f docker-compose.prod.yml up -d
+
+# View logs
+docker-compose -f docker-compose.prod.yml logs -f
+
+# Stop services
+docker-compose -f docker-compose.prod.yml down
+```
+
+### Security Best Practices
+
+1. **Environment Variables:**
+   ```bash
+   # Use .env file (never commit to Git)
+   cp env.example .env
+   # Edit .env with your actual API key
+   ```
+
+2. **Container Security:**
+   ```bash
+   # Run with resource limits
+   docker run -d \
+     --name mcp-tailwind-server \
+     --env-file .env \
+     --memory=512m \
+     --cpus=1.0 \
+     --restart unless-stopped \
+     mcp-tailwind-runtime:latest
+   ```
+
+3. **Network Isolation:**
+   ```bash
+   # Create isolated network
+   docker network create mcp-network
+   
+   # Run with custom network
+   docker run -d \
+     --name mcp-tailwind-server \
+     --network mcp-network \
+     --env-file .env \
+     --restart unless-stopped \
+     mcp-tailwind-runtime:latest
+   ```
+
+For detailed Docker and security guide, see [DOCKER-SECURITY-GUIDE.md](DOCKER-SECURITY-GUIDE.md).
+
 ## 🔧 Troubleshooting
 
 ### Common Issues
@@ -384,12 +480,24 @@ MIT License - see LICENSE file for details.
    - Verify the API key is valid and has proper permissions
    - Check your internet connection
 
-3. **Claude Desktop not connecting:**
+3. **Docker container issues:**
+   ```bash
+   # Check container logs
+   docker logs mcp-tailwind-server
+   
+   # Verify environment
+   docker exec mcp-tailwind-server env | grep GEMINI
+   
+   # Restart container
+   docker restart mcp-tailwind-server
+   ```
+
+4. **Claude Desktop not connecting:**
    - Restart Claude Desktop after updating config
    - Check the config file path is correct
    - Verify JSON syntax is valid
 
-4. **Build errors:**
+5. **Build errors:**
    ```bash
    # Clean and rebuild
    rm -rf dist/ node_modules/
@@ -401,6 +509,11 @@ MIT License - see LICENSE file for details.
 ```bash
 # Run with debug logging
 DEBUG=mcp:* node dist/index.js
+
+# Docker debug
+docker run -it --rm \
+  --env-file .env \
+  mcp-tailwind-runtime:latest npm run dev
 ```
 
 ## 🙋‍♂️ Support
