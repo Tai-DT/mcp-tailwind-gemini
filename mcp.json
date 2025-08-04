@@ -1,0 +1,61 @@
+{
+  "name": "mcp-tailwind-gemini",
+  "version": "1.0.0",
+  "description": "Advanced MCP server for Tailwind CSS with Gemini AI integration and cross-platform support",
+  "mcpVersion": "2024-11-05",
+  "servers": {
+    "mcp-tailwind-gemini": {
+      "command": "node",
+      "args": ["./dist/index.js"],
+      "description": "Advanced MCP server for Tailwind CSS with Gemini AI integration",
+      "capabilities": [
+        "tools"
+      ],
+      "env": {
+        "GEMINI_API_KEY": "${GEMINI_API_KEY}"
+      }
+    }
+  },
+  "tools": [
+    {
+      "name": "generate_component",
+      "description": "Generate Tailwind CSS components with AI assistance"
+    },
+    {
+      "name": "get_shadcn_component", 
+      "description": "Get shadcn/ui component source code and examples"
+    },
+    {
+      "name": "create_project",
+      "description": "Generate complete project setup with Vite + Tailwind + shadcn/ui"
+    },
+    {
+      "name": "optimize_classes",
+      "description": "Optimize and clean up Tailwind CSS classes"
+    },
+    {
+      "name": "create_theme",
+      "description": "Generate custom color themes and design systems"
+    },
+    {
+      "name": "analyze_design",
+      "description": "Get AI-powered design feedback and analysis"
+    },
+    {
+      "name": "generate_preview",
+      "description": "Create visual previews of components with multiple device sizes"
+    },
+    {
+      "name": "convert_to_tailwind",
+      "description": "Convert CSS/SCSS to Tailwind CSS classes"
+    },
+    {
+      "name": "suggest_improvements",
+      "description": "Get AI-powered improvement suggestions"
+    },
+    {
+      "name": "create_layout",
+      "description": "Generate responsive layouts for different use cases"
+    }
+  ]
+}

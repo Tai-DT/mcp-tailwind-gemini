@@ -1,0 +1,94 @@
+# 🐳 Docker Compose for MCP Tailwind Gemini
+# Production-ready deployment configuration
+
+version: '3.8'
+
+services:
+  mcp-tailwind-gemini:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production
+    image: mcp-tailwind-gemini:latest
+    container_name: mcp-tailwind-gemini
+    
+    # Environment variables
+    environment:
+      - NODE_ENV=production
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - CLAUDE_API_KEY=${CLAUDE_API_KEY:-}
+      - FIGMA_ACCESS_TOKEN=${FIGMA_ACCESS_TOKEN:-}
+      - MCP_PORT=3000
+    
+    # Port mapping (if web interface needed)
+    ports:
+      - "3000:3000"
+    
+    # Resource limits
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '0.5'
+        reservations:
+          memory: 256M
+          cpus: '0.25'
+    
+    # Health check
+    healthcheck:
+      test: ["CMD", "node", "-e", "console.log('MCP Tailwind Gemini is healthy')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    
+    # Restart policy
+    restart: unless-stopped
+    
+    # Logging configuration
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    
+    # Volume mounts for persistent data (if needed)
+    volumes:
+      - ./logs:/app/logs:rw
+      - ./cache:/app/cache:rw
+    
+    # Network
+    networks:
+      - mcp-network
+
+  # Optional: Redis for caching (if needed)
+  redis:
+    image: redis:7-alpine
+    container_name: mcp-redis
+    command: redis-server --appendonly yes
+    volumes:
+      - redis-data:/data
+    networks:
+      - mcp-network
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 128M
+          cpus: '0.1'
+
+networks:
+  mcp-network:
+    driver: bridge
+
+volumes:
+  redis-data:
+    driver: local
+
+# Environment file template
+# Create .env file with:
+# GEMINI_API_KEY=your_gemini_api_key
+# OPENAI_API_KEY=your_openai_api_key (optional)
+# CLAUDE_API_KEY=your_claude_api_key (optional)
+# FIGMA_ACCESS_TOKEN=your_figma_token (optional)

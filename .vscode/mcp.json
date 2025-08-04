@@ -1,0 +1,9 @@
+{
+  "servers": {
+    "mcp-tailwind-gemini": {
+      "type": "stdio",
+      "command": "npm",
+      "args": ["run", "dev"]
+    }
+  }
+}

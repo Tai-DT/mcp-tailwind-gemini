@@ -1,0 +1,87 @@
+# Docker ignore patterns for MCP Tailwind Gemini
+
+# Node modules and dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build outputs that shouldn't be included (will be built in container)
+dist/
+build/
+*.tsbuildinfo
+
+# Environment and configuration files
+.env*
+!.env.example
+
+# Development files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Testing and coverage
+coverage/
+.nyc_output/
+test-results/
+test-results.json
+
+# Logs
+logs/
+*.log
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+
+# Documentation that's not needed in container
+docs/images/
+docs/screenshots/
+*.md
+!README.md
+
+# Scripts that are not needed for production
+scripts/test-*.mjs
+scripts/comprehensive-test.mjs
+scripts/production-test.mjs
+scripts/quick-fix.mjs
+
+# TypeScript source files (will be compiled to dist/)
+src/
+
+# Development configuration
+tsconfig.json
+.eslintrc*
+.prettierrc*
+jest.config.*
+
+# CI/CD files
+.github/
+.gitlab-ci.yml
+.travis.yml
+Jenkinsfile
+
+# Docker files
+Dockerfile*
+docker-compose*.yml
+.dockerignore
+
+# Temporary files
+tmp/
+temp/
+.tmp/
