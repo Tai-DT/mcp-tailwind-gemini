@@ -79,9 +79,11 @@ Add to your `claude_desktop_config.json`:
 {
   "mcpServers": {
     "mcp-tailwind-gemini": {
-      "command": "npm",
-      "args": ["run", "start"],
-      "cwd": "/path/to/mcp-tailwind-gemini"
+      "command": "node",
+      "args": ["/Users/macbook/Desktop/Code/mcp-tailwind-gemini/dist/index.js"],
+      "env": {
+        "GEMINI_API_KEY": "your_gemini_api_key_here"
+      }
     }
   }
 }
@@ -90,7 +92,23 @@ Add to your `claude_desktop_config.json`:
 **Config File Locations:**
 - **macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
 - **Windows**: `%APPDATA%\\Claude\\claude_desktop_config.json`
+- **Linux**: `~/.config/Claude/claude_desktop_config.json`
 
+**Alternative Configuration (using npm):**
+```json
+{
+  "mcpServers": {
+    "mcp-tailwind-gemini": {
+      "command": "npm",
+      "args": ["run", "start"],
+      "cwd": "mcp-tailwind-gemini",
+      "env": {
+        "GEMINI_API_KEY": "your_gemini_api_key_here"
+      }
+    }
+  }
+}
+``
 ## 🛠️ Available Tools
 
 ### Component Generation
@@ -283,6 +301,23 @@ npm run build
 npm start
 ```
 
+### Testing MCP Server
+
+1. **Test with echo command:**
+```bash
+echo '{"jsonrpc": "2.0", "id": 1, "method": "tools/list"}' | node dist/index.js
+```
+
+2. **Test with a simple tool call:**
+```bash
+echo '{"jsonrpc": "2.0", "id": 1, "method": "tools/call", "params": {"name": "generate_component", "arguments": {"description": "A simple button", "type": "button"}}}' | node dist/index.js
+```
+
+3. **Test with environment variable:**
+```bash
+GEMINI_API_KEY="your_key" node dist/index.js
+```
+
 ### Environment Variables
 - `GEMINI_API_KEY`: Your Google Gemini API key (optional)
 - `NODE_ENV`: Environment mode (development/production)
@@ -318,6 +353,39 @@ We welcome contributions! Please see our contributing guidelines for details.
 ## 📄 License
 
 MIT License - see LICENSE file for details.
+
+## 🔧 Troubleshooting
+
+### Common Issues
+
+1. **MCP Server not starting:**
+   - Ensure you've run `npm run build` first
+   - Check that `dist/index.js` exists
+   - Verify Node.js version is 18+
+
+2. **Gemini API errors:**
+   - Set your `GEMINI_API_KEY` environment variable
+   - Verify the API key is valid and has proper permissions
+   - Check your internet connection
+
+3. **Claude Desktop not connecting:**
+   - Restart Claude Desktop after updating config
+   - Check the config file path is correct
+   - Verify JSON syntax is valid
+
+4. **Build errors:**
+   ```bash
+   # Clean and rebuild
+   rm -rf dist/ node_modules/
+   npm install
+   npm run build
+   ```
+
+### Debug Mode
+```bash
+# Run with debug logging
+DEBUG=mcp:* node dist/index.js
+```
 
 ## 🙋‍♂️ Support
 
